@@ -14,7 +14,6 @@ webhooks:
       path: /mutate-v1-pod
   failurePolicy: Fail
   name: xy.meteor.io
-  matchPolicy: Equivalent
   rules:
   - apiGroups:
     - ""
