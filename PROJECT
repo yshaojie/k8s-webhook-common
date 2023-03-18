@@ -5,8 +5,8 @@
 domain: meteor.io
 layout:
 - go.kubebuilder.io/v3
-projectName: k8s-webhook-base
-repo: k8s-webhook-base
+projectName: k8s-webhook-common
+repo: k8s-webhook-common
 resources:
 - api:
     crdVersion: v1
@@ -15,7 +15,7 @@ resources:
   domain: meteor.io
   group: core
   kind: Pod
-  path: k8s-webhook-base/api/v1
+  path: k8s-webhook-common/api/v1
   version: v1
   webhooks:
     defaulting: true

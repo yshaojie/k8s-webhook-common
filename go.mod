@@ -1,4 +1,4 @@
-module k8s-webhook-base
+module k8s-webhook-common
 
 go 1.19
 

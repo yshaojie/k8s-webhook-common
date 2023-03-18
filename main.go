@@ -18,7 +18,7 @@ package main
 
 import (
 	"flag"
-	v1 "k8s-webhook-base/api/v1"
+	v1 "k8s-webhook-common/api/v1"
 	"os"
 	"sigs.k8s.io/controller-runtime/pkg/webhook"
 
