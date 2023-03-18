@@ -17,4 +17,4 @@ spec:
       protocol: TCP
       targetPort: 9443
   selector:
-    control-plane: my-project-name
+    control-plane: k8s-webhook-common
