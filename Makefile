@@ -1,6 +1,6 @@
 
 # Image URL to use all building/pushing image targets
-IMG ?= k8s-webhook-base:latest
+IMG ?= k8s-webhook-common:latest
 # ENVTEST_K8S_VERSION refers to the version of kubebuilder assets to be downloaded by envtest binary.
 ENVTEST_K8S_VERSION = 1.26.0
 
