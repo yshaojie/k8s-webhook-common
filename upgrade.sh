@@ -1,5 +1,5 @@
 tag=$(date '+%m%d%H%M%S')
-image_name=base-webhook
+image_name=k8s-webhook-common
 #清除以前的镜像
 docker exec -it kind-control-plane bash -c "crictl images | grep docker.io/library/${image_name} | awk '{print \$1\":\"\$2}' |  xargs crictl rmi"
 #清除以前的镜像，否则通过kind load docker-image加载的镜像无效
