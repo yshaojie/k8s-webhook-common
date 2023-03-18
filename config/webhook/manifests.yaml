@@ -9,7 +9,7 @@ webhooks:
   - v1
   clientConfig:
     service:
-      name: webhook-service
+      name: k8s-webhook-common-service
       namespace: system
       path: /mutate-v1-pod
   failurePolicy: Fail
