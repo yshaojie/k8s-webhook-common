@@ -20,4 +20,4 @@ spec:
       - name: cert
         secret:
           defaultMode: 420
-          secretName: k8s-common-webhook-server-cert
+          secretName: k8s-webhook-common-server-cert

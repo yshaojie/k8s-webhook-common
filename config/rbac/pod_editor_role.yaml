@@ -6,8 +6,8 @@ metadata:
     app.kubernetes.io/name: clusterrole
     app.kubernetes.io/instance: pod-editor-role
     app.kubernetes.io/component: rbac
-    app.kubernetes.io/created-by: k8s-common-webhook
-    app.kubernetes.io/part-of: k8s-common-webhook
+    app.kubernetes.io/created-by: k8s-webhook-common
+    app.kubernetes.io/part-of: k8s-webhook-common
     app.kubernetes.io/managed-by: kustomize
   name: pod-editor-role
 rules:
