@@ -2,10 +2,12 @@ package v1
 
 import (
 	"context"
+	"k8s-webhook-common/api/pods"
 	admissionv1 "k8s.io/api/admission/v1"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/util/json"
+	"k8s.io/apimachinery/pkg/util/validation/field"
 	"net/http"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -113,10 +115,10 @@ func handleUpdate(pod *corev1.Pod, oldPod *corev1.Pod) {
 }
 
 func handleCreate(pod *corev1.Pod) {
-	containers := pod.Spec.Containers
-	fillCommonEnvVars(containers)
-	initContainers := pod.Spec.InitContainers
-	fillCommonEnvVars(initContainers)
+	pods.VisitContainersWithPath(&pod.Spec, field.NewPath("spec"), func(container *corev1.Container, path *field.Path) bool {
+		fillCommonEnvVars(container)
+		return true
+	})
 	config := pod.Spec.DNSConfig
 	if config == nil {
 		pod.Spec.DNSConfig = &corev1.PodDNSConfig{}
@@ -145,22 +147,18 @@ func hasDnsConfigOptions(options []corev1.PodDNSConfigOption, targetOption corev
 	return false
 }
 
-func fillCommonEnvVars(containers []corev1.Container) error {
-	for i, container := range containers {
-		envVars := container.Env
-		for _, commonEnvVar := range commonEnvVars {
-			if hasEnvVar(container, commonEnvVar) {
-				continue
-			}
-			envVars = append(envVars, commonEnvVar)
+func fillCommonEnvVars(container *corev1.Container) {
+	envVars := container.Env
+	for _, commonEnvVar := range commonEnvVars {
+		if hasEnvVar(container, commonEnvVar) {
+			continue
 		}
-		containers[i].Env = envVars
+		envVars = append(envVars, commonEnvVar)
 	}
-
-	return nil
+	container.Env = envVars
 }
 
-func hasEnvVar(container corev1.Container, checkEnvVar corev1.EnvVar) bool {
+func hasEnvVar(container *corev1.Container, checkEnvVar corev1.EnvVar) bool {
 	for _, envVar := range container.Env {
 		if envVar.Name == checkEnvVar.Name {
 			return true
